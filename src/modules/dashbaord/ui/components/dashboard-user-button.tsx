@@ -1,12 +1,6 @@
 import { authClient } from "@/lib/auth-client";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import {
-  ChevronDownIcon,
-  CreditCardIcon,
-  User,
-  Settings,
-  LogOutIcon,
-} from "lucide-react";
+import { ChevronDownIcon, CreditCardIcon, LogOutIcon } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -82,7 +76,10 @@ const DashboardUserButton = () => {
             <DrawerDescription>{data.user.email}</DrawerDescription>
           </DrawerHeader>
           <DrawerFooter>
-            <Button variant="outline" onClick={() => {}}>
+            <Button
+              variant="outline"
+              onClick={() => authClient.customer.portal()}
+            >
               Billing
               <CreditCardIcon className="size-4 ml-2 inline-block" />
             </Button>
@@ -123,9 +120,21 @@ const DashboardUserButton = () => {
         </div>
         <ChevronDownIcon className="size-4 shrink-0" />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
-        <DropdownMenuItem className="flex items-center justify-between cursor-pointer">
-          <a href="/billing">Billing</a>
+      <DropdownMenuContent align="end" side="right" className="w-72">
+        <DropdownMenuLabel>
+          <div className="flex flex-col gap-1">
+            <span className="font-medium truncate">{data.user.name}</span>
+            <span className="text-sm font-normal text-muted-foreground truncate">
+              {data.user.email}
+            </span>
+          </div>
+        </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          onClick={() => authClient.customer.portal()}
+          className="cursor-pointer flex items-center justify-between"
+        >
+          Billing
           <CreditCardIcon className="size-4 ml-2 inline-block" />
         </DropdownMenuItem>
         <DropdownMenuSeparator />
